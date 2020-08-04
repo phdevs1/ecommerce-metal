@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  db:
+    container_name: db_metal
+    image: postgres:11.8
+    env_file: .env
+    volumes:
+      - ~/docker_test/db_metal:/var/lib/postgresql/data/pgdata
+  web:
+    build: ./back_end
+    container_name: ecommerce_django
+    env_file: .env
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./back_end:/back_end
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+volumes:
+  db_metal:
+    external: true

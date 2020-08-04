@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <a href="{% url 'products:newproduct'%}">new producto</a>
+    <h1>joderrrrrrrr</h1>
+    
+    {% if user.is_authenticated %}
+        <h3>{{user.username}}  | <a href="{% url 'products:logout1' %}">Loogut</a> </h3>
+    {% else %}
+        <a href="{% url 'products:authentication' %}">Login</a>
+    {% endif %}
+    <ul>
+        {% for p in object_list %}
+            <li>
+                <a href="{% url 'products:detail1' p.id %}">{{p.name}}</a>
+                 
+                {{p.description}}
+                {% if p.image %}
+                    <img src="{{p.image.url}}" alt="">
+                {% endif %}
+            </li>
+
+        {% endfor %}
+    </ul>
+</body>
+</html>
